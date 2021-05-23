@@ -54,8 +54,11 @@ steps:
 
   - task: DotNetCoreCLI@2
     displayName: "Run Unit Tests - Configuration: $(buildConfiguration)"
-    command: test
+    command: "test"
     arguments: "--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourceDirectory)/TestResults/Coverage/"
+    publishTestResults: true
+    projects: "**/*.Tests.csproj"
+
   - task: DotNetCoreCLI@2
     displayName: "Create Code Coverage Report"
     inputs:
